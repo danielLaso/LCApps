@@ -1,0 +1,3 @@
+catalog:
+    resource: ../../src/Catalog/Presentation/
+    type: attribute

@@ -20,7 +20,6 @@ class OrderController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $order = new Order($data['reference']);
-
         foreach ($data['lines'] as $lineData) {
             $product = $em->getRepository(Product::class)->find($lineData['productId']);
             if (!$product) {

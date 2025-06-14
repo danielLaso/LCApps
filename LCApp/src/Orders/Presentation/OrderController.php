@@ -26,7 +26,7 @@ class OrderController extends AbstractController
                 return new JsonResponse(['error' => 'Product not found (id '.$lineData['productId'].')'], JsonResponse::HTTP_BAD_REQUEST);
             }
 
-            $orderLine = new OrderLine($product, (int) $lineData['quantity']);
+            $orderLine = new OrderLine($product, (int) $lineData['quantity'], $order);
             $order->addLine($orderLine);
         }
 
@@ -68,7 +68,6 @@ class OrderController extends AbstractController
             return new JsonResponse(['error' => 'Order not found'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        // Validar y actualizar stock
         foreach ($order->getLines() as $line) {
             $product = $line->getProduct();
             $quantity = $line->getQuantity();
@@ -80,13 +79,11 @@ class OrderController extends AbstractController
             }
         }
 
-        // Disminuir stock de productos
         foreach ($order->getLines() as $line) {
             $product = $line->getProduct();
             $product->setAvailableStock($product->getAvailableStock() - $line->getQuantity());
         }
 
-        // Cambiar estado del pedido
         $order->confirm();
 
         $em->flush();

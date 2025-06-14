@@ -4,6 +4,7 @@ namespace App\Orders\Domain;
 
 use App\Catalog\Domain\Product;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'order_lines')]
@@ -22,16 +23,21 @@ class OrderLine
     private int $quantity;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private string $unitPrice; // Copia del precio del producto en el momento del pedido
+    private string $unitPrice;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'lines')]
     #[ORM\JoinColumn(nullable: false)]
     private Order $order;
 
+    public function setOrder(Order $order): void
+    {
+        $this->order = $order;
+    }
+
     public function __construct(Product $product, int $quantity, Order $order)
     {
         if ($quantity <= 0) {
-            throw new \InvalidArgumentException('Quantity must be positive.');
+            throw new InvalidArgumentException('Quantity must be positive.');
         }
 
         $this->product = $product;

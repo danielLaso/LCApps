@@ -5,6 +5,7 @@ namespace App\Orders\Domain;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 #[ORM\Entity(repositoryClass: 'App\Orders\Infrastructure\DoctrineOrderRepository')]
 #[ORM\Table(name: 'orders')]
@@ -48,6 +49,10 @@ class Order
 
     public function confirm(): void
     {
+        if ($this->lines->isEmpty()) {
+            throw new DomainException('Cannot confirm an empty order.');
+        }
+        
         $this->status = 'confirmed';
     }
 }

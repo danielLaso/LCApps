@@ -42,7 +42,7 @@ class OrderLine
 
         $this->product = $product;
         $this->quantity = $quantity;
-        $this->unitPrice = number_format(round($product->getPrice(), 2), 2, '.', '');
+        $this->unitPrice = number_format(round($product->getPrice()->getAmount(), 2), 2, '.', '');
         $this->order = $order;
     }
 

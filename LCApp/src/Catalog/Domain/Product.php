@@ -3,6 +3,7 @@
 namespace App\Catalog\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Catalog\Domain\ValueObject\Money;
 
 #[ORM\Entity(repositoryClass: 'App\Catalog\Infrastructure\DoctrineProductRepository')]
 #[ORM\Table(name: 'products')]
@@ -22,7 +23,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private int $availableStock;
 
-    public function __construct(string $name, float $price, int $availableStock)
+    public function __construct(string $name, Money $price, int $availableStock)
     {
         $this->name = $name;
         $this->setPrice($price);
@@ -32,17 +33,14 @@ class Product
     public function getId(): ?int { return $this->id; }
     public function getName(): string { return $this->name; }
 
-    public function getPrice(): float
+    public function getPrice(): Money
     {
-        return (float) $this->price;
+        return new Money((float) $this->price);
     }
 
-    public function setPrice(float $price): void
+    public function setPrice(Money $price): void
     {
-        if ($price < 0) {
-            throw new \InvalidArgumentException('Price cannot be negative.');
-        }
-        $this->price = number_format(round($price, 2), 2, '.', '');
+        $this->price = (string) $price;
     }
 
     public function getAvailableStock(): int { return $this->availableStock; }

@@ -12,4 +12,16 @@ class DoctrineOrderRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Order::class);
     }
+    public function save(Order $order): void
+    {
+        $this->_em->persist($order);
+        $this->_em->flush();
+    }
+
+    public function remove(Order $order): void
+    {
+        $this->_em->remove($order);
+        $this->_em->flush();
+    }
+
 }

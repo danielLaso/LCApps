@@ -3,6 +3,7 @@
 namespace App\Catalog\Application;
 
 use App\Catalog\Domain\Product;
+use App\Catalog\Domain\ValueObject\Money;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ProductService
@@ -13,7 +14,7 @@ class ProductService
 
     public function createProduct(string $name, float $price, int $availableStock): Product
     {
-        $product = new Product($name, $price, $availableStock);
+        $product = new Product($name, new Money($price), $availableStock);
 
         $this->em->persist($product);
         $this->em->flush();
@@ -26,4 +27,5 @@ class ProductService
         $product->setAvailableStock($availableStock);
         $this->em->flush();
     }
+
 }

@@ -1,0 +1,50 @@
+### Crear producto
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+    "name": "Producto de ejemplo",
+    "price": 19.99,
+    "availableStock": 50
+}
+
+###
+
+### Listar productos
+GET http://localhost:8080/products
+
+###
+
+### Modificar stock de un producto
+PATCH http://localhost:8080/products/1/stock
+Content-Type: application/json
+
+{
+    "availableStock": 30
+}
+
+###
+
+### Crear pedido
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+    "reference": "ORDER-1234",
+    "lines": [
+        {
+            "productId": 1,
+            "quantity": 2
+        }
+    ]
+}
+
+###
+
+### Listar pedidos
+GET http://localhost:8080/orders
+
+###
+
+### Confirmar pedido
+PATCH http://localhost:8080/orders/1/confirm

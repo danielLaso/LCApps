@@ -14,14 +14,16 @@ class DoctrineProductRepository extends ServiceEntityRepository
     }
     public function save(Product $product): void
     {
-        $this->_em->persist($product);
-        $this->_em->flush();
+        $em = $this->getEntityManager();
+        $em->persist($product);
+        $em->flush();
     }
 
     public function remove(Product $product): void
     {
-        $this->_em->remove($product);
-        $this->_em->flush();
+        $em = $this->getEntityManager();
+        $em->remove($product);
+        $em->flush();
     }
 
 }

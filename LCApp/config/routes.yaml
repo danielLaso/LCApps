@@ -1,5 +1,12 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+# controllers:
+#     resource:
+#         path: ../src/Controller/
+#         namespace: App\Controller
+#     type: attribute
+catalog_controllers:
+    resource: ../src/Catalog/Presentation/
+    type: attribute
+
+orders_controllers:
+    resource: ../src/Orders/Presentation/
     type: attribute

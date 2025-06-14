@@ -27,5 +27,5 @@ class ProductService
         $product->setAvailableStock($availableStock);
         $this->em->flush();
     }
-
+    
 }

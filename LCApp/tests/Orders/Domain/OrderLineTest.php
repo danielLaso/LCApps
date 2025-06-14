@@ -5,6 +5,7 @@ namespace App\Tests\Orders\Domain;
 use App\Orders\Domain\Order;
 use App\Orders\Domain\OrderLine;
 use App\Catalog\Domain\Product;
+use App\Catalog\Domain\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
@@ -13,7 +14,7 @@ class OrderLineTest extends TestCase
     public function testOrderLineIsCreatedCorrectly(): void
     {
         $order = new Order('REF-ORDERLINE');
-        $product = new Product('Product Test', 9.99999, 10);
+        $product = new Product('Product Test', new Money(9.99999), 10);
 
         $orderLine = new OrderLine($product, 3, $order);
 
@@ -26,7 +27,7 @@ class OrderLineTest extends TestCase
     public function testGetTotalPrice(): void
     {
         $order = new Order('REF-TOTAL');
-        $product = new Product('Product Total', 5.25, 10);
+        $product = new Product('Product Total', new Money(5.25), 10);
 
         $orderLine = new OrderLine($product, 4, $order);
 
@@ -38,7 +39,7 @@ class OrderLineTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $order = new Order('REF-INVALID');
-        $product = new Product('Invalid Product', 10.0, 10);
+        $product = new Product('Invalid Product', new Money(10.0), 10);
 
         new OrderLine($product, 0, $order);
     }
@@ -48,7 +49,7 @@ class OrderLineTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $order = new Order('REF-INVALID-NEGATIVE');
-        $product = new Product('Invalid Product Negative', 10.0, 10);
+        $product = new Product('Invalid Product Negative', new Money(10.0), 10);
 
         new OrderLine($product, -5, $order);
     }

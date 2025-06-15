@@ -14,8 +14,6 @@ La aplicación está desarrollada utilizando Symfony 6.4 y sigue los principios 
 
 - Docker y Docker Compose instalados
 - Git
-- PHP 8.2 o superior
-- MySQL 8.0
 
 ## 🚀 Instalación
 
@@ -29,6 +27,12 @@ cd LCApps
 ```bash
 cd docker
 docker-compose up --build
+```
+
+3. Instalar dependencias
+```bash
+cd LCApp
+composer install
 ```
 ## 📬 Colección de Endpoints
 

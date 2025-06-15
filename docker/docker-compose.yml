@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   nginx:
     image: nginx:1.25
     ports:
@@ -28,4 +27,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ../SQL:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
